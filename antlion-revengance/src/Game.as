@@ -9,15 +9,32 @@ package
 	 */
 	public class Game extends Sprite 
 	{
-	
-		// Level Creation Constants - Tile Types
-		public static const TILE_ROCK:int = 0;
-		public static const TILE_DIRT:int = 1;
-		public static const TILE_MUD:int = 2;
-		public static const TILE_RUBBLE:int = 3;
-		public static const TILE_TWIG:int = 4;
 		
-		private var lvlArray:Array =   [0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0];
+		private var lvlArray:Array =   [0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1];
+		private var blockModel:Array = [];
 		
 		public function Game():void 
 		{
@@ -29,8 +46,21 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
+			buildLevel();
 		}
 		
+		private function buildLevel():void
+		{
+			for (var i:int = 0; i < lvlArray.length; i++) {
+				var x:int = 0;
+				var y:int = 0;
+				x = 32 * (i % 16);
+				y = 32 * Math.floor(i/16);
+				var temp:Block = new Block(lvlArray[i], x, y); 
+				blockModel.push(temp);
+				addChild(temp);
+			}
+		}
 	}
 	
 }
