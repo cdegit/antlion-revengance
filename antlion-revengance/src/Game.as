@@ -13,8 +13,8 @@ package
 	{
 		private var ant:Ant;
 		
-		private var lvlArray:Array =   [0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
-										2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+		private var lvlArray:Array =   [1, 1, 1, 1, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
+										2, 3, 4, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
 										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
 										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -53,7 +53,7 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			
 			buildLevel();
-			ant = new Ant();
+			ant = new Ant(blockModel);
 			addChild(ant);
 		}
 		
@@ -85,8 +85,9 @@ package
 					break;
 				case Keyboard.RIGHT:
 					ant.move(Ant.SPEED, 0);
-					break;					
+					break;	
 			}
+			
 		}
 	}
 	

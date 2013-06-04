@@ -11,10 +11,12 @@ package
 	{
 		
 		public static const SPEED:int = 32;
+		public var blockModel:Array = [];
 		
-		public function Ant() 
+		public function Ant(blockModel:Array) 
 		{
 			super();
+			this.blockModel = blockModel;
 			render();
 		}
 		
@@ -27,13 +29,34 @@ package
 		
 		public function move(x:int, y:int):void
 		{
-			if ( this.x + x > 512 - 32 || this.x + x < 0) {
-				return;
-			} else if ( this.y + y > 768 - 32 || this.y + y < 0 ) {
-				return;
-			}
+			var oldx:int = this.x;
+			var oldy:int = this.y;
+			
 			this.x += x;
-			this.y += y;				
+			this.y += y;	
+			
+			var tileType:int = -1; 
+			for (var i:int = 0; i < blockModel.length; i++) {
+				var temp:int = checkBlock(blockModel[i]);
+				if (temp != -1) {
+					tileType = temp;
+					break;
+				}
+			}
+			if ( ( this.x > 512 - 32 || this.x < 0) || ( this.y > 768 - 32 || this.y < 0 ) || (tileType == 0) ) {
+				this.x = oldx;
+				this.y = oldy;
+			}			
+		}
+		
+		public function checkBlock(block:Block):int
+		{
+			var result:int = -1;
+			if (block.hitTestObject(this)) {
+				trace(block.type);
+				result = block.type;
+			}
+			return result;
 		}
 		
 		public function update():void

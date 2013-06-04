@@ -18,7 +18,7 @@ package
 		public static const TILE_RUBBLE:int = 3;
 		public static const TILE_TWIG:int = 4;
 		
-		private var type:int;
+		public var type:int;
 		private var tileNumber:int;
 		private var fillColor:uint = 0x000000;
 		
