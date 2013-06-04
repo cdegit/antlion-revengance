@@ -12,7 +12,6 @@ package
 	public class Game extends Sprite 
 	{
 		private var ant:Ant;
-		private var antLion:AntLion;
 		
 		private var lvlArray:Array =   [1, 1, 1, 1, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 1,
 										2, 3, 4, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
@@ -56,9 +55,6 @@ package
 			buildLevel();
 			ant = new Ant(blockModel);
 			addChild(ant);
-			
-			antLion = new AntLion(blockModel);
-			addChild(antLion);
 		}
 		
 		private function buildLevel():void
@@ -92,9 +88,7 @@ package
 					break;	
 			}
 			
-			var antx:int = ant.getX();
-			var anty:int = ant.getY();
-			antLion.chase(antx, anty);
 		}
 	}
+	
 }

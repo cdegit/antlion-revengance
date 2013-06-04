@@ -17,17 +17,13 @@ package
 		{
 			super();
 			this.blockModel = blockModel;
-			// Changed to intialize position here because Ant.x & Ant.y
-			// are default at (0,0)
-			this.x = 48;
-			this.y = 16;
 			render();
 		}
 		
 		public function render():void
 		{
 			this.graphics.beginFill(0xff0000);
-			this.graphics.drawCircle(0, 0, 10);
+			this.graphics.drawCircle(16, 16, 10);
 			this.graphics.endFill();
 		}
 		
@@ -66,16 +62,6 @@ package
 		public function update():void
 		{
 			
-		}
-		
-		public function getX():int
-		{
-			return this.x;
-		}
-		
-		public function getY():int
-		{
-			return this.y;
 		}
 	}
 
