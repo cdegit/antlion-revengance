@@ -5,7 +5,7 @@ package
 	
 	/**
 	 * ...
-	 * @author Cassandra de Git and Charlie Chao
+	 * @author Green Mesa
 	 */
 	public class Ant extends Sprite 
 	{
