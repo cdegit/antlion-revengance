@@ -42,9 +42,19 @@ package
 			var tileType:int = -1; 
 			for (var i:int = 0; i < blockModel.length; i++) {
 				var temp:int = checkBlock(blockModel[i]);
-				if (temp != -1) {
-					tileType = temp;
-					break;
+				
+				switch(temp)	// handle interactions with different tile types 
+				{
+					case -1:
+						break;
+					case Block.TILE_MUD:
+						// something here
+					case Block.TILE_RUBBLE:
+						// something here, ant is able to pick up
+					case Block.TILE_TWIG:
+						// ant is killed
+					default:
+						tileType = temp;
 				}
 			}
 			if ( ( this.x > 512 - 32 || this.x < 0) || ( this.y > 768 - 32 || this.y < 0 ) || (tileType == 0) ) {
