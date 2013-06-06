@@ -16,32 +16,34 @@ package
 		private var ant:Ant;
 		private var antLion:AntLion;
 		
+		private var timer:Timer;
+		
 		private var exitIndex:int;
 		
 		private var lvlArray:Array =   [1, 1, 1, 1, 1, 2, 3, 4, 1, 1, 1, 5, 0, 0, 0, 0,
-										0, 3, 4, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0];
+										0, 3, 4, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 1, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 1, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 1, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 1, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 1, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 1, 1, 1, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 1, 1, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 4, 1, 0, 0, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0];
 		private var blockModel:Array = [];
 		
 		public function Game():void 
@@ -55,10 +57,15 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			
+			startGame();
+		}
+		
+		private function startGame():void
+		{
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			
-			var timer:Timer = new Timer(1000);
-			timer.addEventListener(TimerEvent.TIMER, moveAntLion);
+			timer = new Timer(1000);
+			timer.addEventListener(TimerEvent.TIMER, gameLoop);
 			timer.start();
 			
 			buildLevel();
@@ -87,6 +94,19 @@ package
 			}
 		}
 		
+		private function gameLoop(event:TimerEvent):void
+		{
+			moveAntLion();
+			
+			// Check Lose Conditions
+			
+			// After Ant Lion moves, check if it has hit the Ant
+			if ( antLion.hitTestObject(ant) ) {
+				trace("Game over!");
+				gameOver();
+			}
+		}
+		
 		private function keyDownHandler(event:KeyboardEvent):void
 		{
 			switch(event.keyCode) 
@@ -109,19 +129,45 @@ package
 			var exit:Block = blockModel[exitIndex];
 			if ( ant.hitTestObject(exit) ) {
 				trace("You win!");
+				winGame();
 			}
 		}
 		
-		private function moveAntLion(event:TimerEvent):void 
+		private function moveAntLion():void 
 		{
 			var antx:int = ant.getX();
 			var anty:int = ant.getY();
 			antLion.chase(antx, anty);
+		}
+		
+		// clean up game assets
+		private function gameEnd():void 
+		{
+			timer.removeEventListener(TimerEvent.TIMER, gameLoop);	// stop game loop
+			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);	// stop listening for keyboard events
+			removeChild(ant);
+			ant = null;	// delete ant
+			removeChild(antLion);
+			antLion = null;
 			
-			// After Ant Lion moves, check if it has hit the Ant
-			if ( antLion.hitTestObject(ant) ) {
-				trace("Game over!");
+			for each(var block:Block in blockModel) {
+				removeChild(block);
+				block = null;
 			}
+			
+			blockModel = null;
+		}
+		
+		private function gameOver():void
+		{
+			gameEnd();
+			// display end game screen
+		}
+		
+		private function winGame():void 
+		{
+			gameEnd();
+			// display end game screen
 		}
 	}
 }

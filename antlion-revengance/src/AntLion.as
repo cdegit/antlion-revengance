@@ -321,16 +321,36 @@ package
 			// Clear the map (only resets the walkable cells, unwalkable steps are untouched for efficiency)
 			resetWalkablePoints();
 			
-			// Uses A* algorithm to get the index that it should move next
-			var nextStep:int = aStarPathfinding(antx, anty);
+			var distance:Number = Math.sqrt(Math.pow(antx - this.x, 2) + Math.pow(anty - this.y, 2));
+			trace("ant x:");
+			trace(antx);
 			
-			// Currently a constant, but should get it dynamically
-			var blockSize:int = 32;
-			var mazeWidth:int = 16;
+			trace("ant y:");
+			trace(anty);
 			
-			// Move the Ant Lion there
-			this.x = ( nextStep % mazeWidth ) * blockSize + 16;
-			this.y = ( Math.floor( nextStep / mazeWidth ) ) * blockSize + 16;
+			trace("this x:");
+			trace(this.x);
+			
+			trace("this y:");
+			trace(this.y);		
+			
+			trace(Math.pow(144 - 144, 2));
+			
+			trace(distance);
+			if (distance <= 300) {
+				// Uses A* algorithm to get the index that it should move next
+				var nextStep:int = aStarPathfinding(antx, anty);
+				
+				// Currently a constant, but should get it dynamically
+				var blockSize:int = 32;
+				var mazeWidth:int = 16;
+				
+				// Move the Ant Lion there
+				this.x = ( nextStep % mazeWidth ) * blockSize + 16;
+				this.y = ( Math.floor( nextStep / mazeWidth ) ) * blockSize + 16;
+			} else {
+				trace("ant is out of ant lion's range!");
+			}
 		}
 		
 		public function update():void
