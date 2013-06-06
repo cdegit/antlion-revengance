@@ -16,7 +16,9 @@ package
 		private var ant:Ant;
 		private var antLion:AntLion;
 		
-		private var lvlArray:Array =   [1, 1, 1, 1, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
+		private var exitIndex:int;
+		
+		private var lvlArray:Array =   [1, 1, 1, 1, 1, 2, 3, 4, 1, 1, 1, 5, 0, 0, 0, 0,
 										0, 3, 4, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
 										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -77,6 +79,11 @@ package
 				var temp:Block = new Block(lvlArray[i], x, y); 
 				blockModel.push(temp);
 				addChild(temp);
+				
+				// If block is EXIT, save its index for convenience
+				if (temp.type == Block.TILE_EXIT) {
+					exitIndex = i;
+				}
 			}
 		}
 		
@@ -97,6 +104,12 @@ package
 					ant.move(Ant.SPEED, 0);
 					break;	
 			}
+			
+			// After Ant moves, check if it has reached exit
+			var exit:Block = blockModel[exitIndex];
+			if ( ant.hitTestObject(exit) ) {
+				trace("You win!");
+			}
 		}
 		
 		private function moveAntLion(event:TimerEvent):void 
@@ -104,6 +117,11 @@ package
 			var antx:int = ant.getX();
 			var anty:int = ant.getY();
 			antLion.chase(antx, anty);
+			
+			// After Ant Lion moves, check if it has hit the Ant
+			if ( antLion.hitTestObject(ant) ) {
+				trace("Game over!");
+			}
 		}
 	}
 }

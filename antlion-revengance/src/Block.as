@@ -17,6 +17,7 @@ package
 		public static const TILE_MUD:int = 2;
 		public static const TILE_RUBBLE:int = 3;
 		public static const TILE_TWIG:int = 4;
+		public static const TILE_EXIT:int = 5;
 		
 		public var type:int;
 		private var tileNumber:int;
@@ -45,6 +46,9 @@ package
 					break;
 				case TILE_TWIG:
 					fillColor = 0x883333;
+					break;
+				case TILE_EXIT:
+					fillColor = 0xffd700;
 					break;
 			}
 			
