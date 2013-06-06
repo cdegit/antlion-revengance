@@ -115,6 +115,10 @@ package
 		
 		private function keyDownHandler(event:KeyboardEvent):void
 		{
+			if (ant.inMud) {
+				return;
+			}
+			
 			switch(event.keyCode) 
 			{
 				case Keyboard.UP:

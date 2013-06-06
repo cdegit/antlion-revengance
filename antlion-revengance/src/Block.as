@@ -18,6 +18,8 @@ package
 		public static const TILE_RUBBLE:int = 3;
 		public static const TILE_TWIG:int = 4;
 		public static const TILE_EXIT:int = 5;
+		public static const TILE_VENT:int = 6;
+		public static const TILE_STONE:int = 7;
 		
 		public var type:int;
 		private var tileNumber:int;

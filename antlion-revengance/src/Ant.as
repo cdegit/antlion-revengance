@@ -2,6 +2,8 @@ package
 {
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
 	
 	/**
 	 * ...
@@ -14,6 +16,8 @@ package
 		public var blockModel:Array = [];
 		
 		public var dead:Boolean = false;
+		public var inMud:Boolean = false;
+		private var mudTimer:Timer;
 		
 		public function Ant(blockModel:Array) 
 		{
@@ -38,8 +42,12 @@ package
 			var oldx:int = this.x;
 			var oldy:int = this.y;
 			
-			this.x += x;
-			this.y += y;	
+			if (inMud) {	
+				
+			} else {
+				this.x += x;
+				this.y += y;	
+			}
 			
 			var tileType:int = -1; 
 			for (var i:int = 0; i < blockModel.length; i++) {
@@ -52,11 +60,18 @@ package
 					case Block.TILE_MUD:
 						// something here
 						// maybe have timer, mess up ant movement until timer is up
+						inMud = true;
+						
+						mudTimer = new Timer(1000, 1);	
+						mudTimer.addEventListener(TimerEvent.TIMER, escapeMud);
+						mudTimer.start();
+						
 						tileType = temp;
 						break;
 					case Block.TILE_RUBBLE:
 						// something here, ant is able to pick up
 						// however, ant cannot walk on this?
+						inMud = false;
 						tileType = temp;
 						break;
 					case Block.TILE_TWIG:
@@ -66,10 +81,11 @@ package
 						dead = true;
 						break;
 					default:
+						inMud = false;
 						tileType = temp;
 				}
 			}
-			if ( ( this.x > 512 - 32 || this.x < 0) || ( this.y > 768 - 32 || this.y < 0 ) || (tileType == 0) ) {
+			if ( ( this.x > 512 - 32 || this.x < 0) || ( this.y > 768 || this.y < 0 ) || (tileType == 0) ) {
 				this.x = oldx;
 				this.y = oldy;
 			}			
@@ -98,6 +114,11 @@ package
 		public function getY():int
 		{
 			return this.y;
+		}
+		
+		public function escapeMud(e:TimerEvent):void
+		{
+			inMud = false;
 		}
 	}
 
