@@ -3,7 +3,9 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.TimerEvent;
 	import flash.ui.Keyboard;
+	import flash.utils.Timer;
 	
 	/**
 	 * Ant Lion 2.0 - The Revengance
@@ -53,6 +55,10 @@ package
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			
+			var timer:Timer = new Timer(1000);
+			timer.addEventListener(TimerEvent.TIMER, moveAntLion);
+			timer.start();
+			
 			buildLevel();
 			ant = new Ant(blockModel);
 			addChild(ant);
@@ -91,7 +97,10 @@ package
 					ant.move(Ant.SPEED, 0);
 					break;	
 			}
-			
+		}
+		
+		private function moveAntLion(event:TimerEvent):void 
+		{
 			var antx:int = ant.getX();
 			var anty:int = ant.getY();
 			antLion.chase(antx, anty);
