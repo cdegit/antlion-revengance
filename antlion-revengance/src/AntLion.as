@@ -305,7 +305,7 @@ package
 		// Simply tests if the block is of type ROCK
 		private function isBlockRock(block:Block):Boolean {
 			var result:Boolean = false;
-			if (block.type == 0) {
+			if (block.type == Block.TILE_ROCK || block.type == Block.TILE_TWIG) {
 				result = true;
 			}
 			return result;

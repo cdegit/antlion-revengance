@@ -13,6 +13,8 @@ package
 		public static const SPEED:int = 32;
 		public var blockModel:Array = [];
 		
+		public var dead:Boolean = false;
+		
 		public function Ant(blockModel:Array) 
 		{
 			super();
@@ -49,10 +51,20 @@ package
 						break;
 					case Block.TILE_MUD:
 						// something here
+						// maybe have timer, mess up ant movement until timer is up
+						tileType = temp;
+						break;
 					case Block.TILE_RUBBLE:
 						// something here, ant is able to pick up
+						// however, ant cannot walk on this?
+						tileType = temp;
+						break;
 					case Block.TILE_TWIG:
 						// ant is killed
+						trace("you hit a twig!");
+						trace(Block.TILE_TWIG);
+						dead = true;
+						break;
 					default:
 						tileType = temp;
 				}

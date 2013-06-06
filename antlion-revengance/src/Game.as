@@ -20,13 +20,13 @@ package
 		
 		private var exitIndex:int;
 		
-		private var lvlArray:Array =   [1, 1, 1, 1, 1, 2, 3, 4, 1, 1, 1, 5, 0, 0, 0, 0,
+		private var lvlArray:Array =   [1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 1, 5, 0, 0, 0, 0,
 										0, 3, 4, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 1, 1, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
-										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 1, 0, 1, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 1, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 1, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 1, 0, 0, 1, 0, 0, 0, 0, 0,
+										0, 0, 0, 0, 1, 2, 3, 1, 0, 0, 1, 0, 0, 0, 0, 0,
 										0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
 										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 1, 0, 0, 0, 0,
 										0, 0, 0, 0, 1, 2, 3, 4, 0, 0, 0, 1, 0, 0, 0, 0,
@@ -57,6 +57,12 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			
+			startScreen();
+		}
+		
+		private function startScreen():void
+		{
+			// draw start screen. Based on user interaction:
 			startGame();
 		}
 		
@@ -130,6 +136,11 @@ package
 			if ( ant.hitTestObject(exit) ) {
 				trace("You win!");
 				winGame();
+			}
+			
+			if (ant.dead) {
+				trace("you lose!");
+				gameOver();
 			}
 		}
 		
