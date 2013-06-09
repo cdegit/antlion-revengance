@@ -84,7 +84,7 @@ package
 			timer.start();
 			
 			buildLevel();
-			ant = new Ant(blockModel);
+			ant = new Ant(blockModel, tileSheetData);
 			addChild(ant);
 			
 			antLion = new AntLion(blockModel);

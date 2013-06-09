@@ -4,6 +4,10 @@ package
 	import flash.events.KeyboardEvent;
 	import flash.utils.Timer;
 	import flash.events.TimerEvent;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	/**
 	 * ...
@@ -18,23 +22,38 @@ package
 		public var dead:Boolean = false;
 		public var inMud:Boolean = false;
 		private var mudTimer:Timer;
+		private var tilesheet:BitmapData;
 		
-		public function Ant(blockModel:Array) 
+		public function Ant(blockModel:Array, tilesheet:BitmapData) 
 		{
 			super();
 			this.blockModel = blockModel;
 			// Changed to intialize position here because Ant.x & Ant.y
 			// are default at (0,0)
-			this.x = 48;
-			this.y = 752;
+			this.x = 80;
+			this.y = 112;
+			this.tilesheet = tilesheet;
 			render();
 		}
 		
 		public function render():void
 		{
+			
 			this.graphics.beginFill(0xff0000);
 			this.graphics.drawCircle(0, 0, 10);
 			this.graphics.endFill();
+			
+			/*
+			var sourceRect:Rectangle = new Rectangle(0, 32, BitmapAssets.TILE_WIDTH, BitmapAssets.TILE_WIDTH);
+			var point:Point = new Point(0, 0);
+			var antBitmapData:BitmapData = new BitmapData(BitmapAssets.TILE_WIDTH, BitmapAssets.TILE_WIDTH, true, 0);
+			antBitmapData.copyPixels(tilesheet, sourceRect, point);
+			var antBitmap:Bitmap = new Bitmap(antBitmapData);
+			addChild(antBitmap);			
+			antBitmap.x = -16;
+			antBitmap.y = -16;
+			*/
+			
 		}
 		
 		public function move(x:int, y:int):void
