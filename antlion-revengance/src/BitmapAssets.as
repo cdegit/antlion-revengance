@@ -18,6 +18,7 @@ package
 		public static const TILE_VENT:int = 9;
 		public static const TILE_STONE:int = 10;
 		public static const TILE_GRASS:int = 11;
+		public static const TILE_SKY:int = 12;
 		
 		public static const TILE_WIDTH:int = 32;
 		

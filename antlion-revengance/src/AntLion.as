@@ -21,7 +21,7 @@ package
 			super();
 			this.blockModel = blockModel;
 			this.x = 16;
-			this.y = 16;
+			this.y = 112;
 			render();
 			
 			// Create a map of which cells are walkable

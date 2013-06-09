@@ -25,6 +25,7 @@ package
 		public static const TILE_VENT:int = 6;
 		public static const TILE_STONE:int = 7;
 		public static const TILE_GRASS:int = 8;
+		public static const TILE_SKY:int = 9;
 		
 		public var type:int;
 		private var tileNumber:int;
@@ -124,9 +125,11 @@ package
 					break;
 			}			
 			
+			/*
 			this.graphics.beginFill(fillColor);
 			this.graphics.drawRect(0,0,TILE_HEIGHT,TILE_WIDTH);
 			this.graphics.endFill();
+			*/
 			
 			if (imageNumber != -1) {
 				var sourceRect:Rectangle = new Rectangle(imageNumber * BitmapAssets.TILE_WIDTH, 0, BitmapAssets.TILE_WIDTH, BitmapAssets.TILE_WIDTH);
