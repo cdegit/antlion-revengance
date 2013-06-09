@@ -43,11 +43,11 @@ package
 			{
 				case TILE_ROCK:
 					fillColor = 0x333333;
-					imageNumber = type;
+					imageNumber = BitmapAssets.TILE_ROCK;
 					break;
 				case TILE_DIRT:
 					fillColor = 0xdddddd;
-					imageNumber = type;
+					imageNumber = BitmapAssets.TILE_DIRT;
 					break;
 				case TILE_MUD:
 					fillColor = 0x33ee88;
