@@ -25,8 +25,8 @@ package
 			this.blockModel = blockModel;
 			// Changed to intialize position here because Ant.x & Ant.y
 			// are default at (0,0)
-			this.x = 80;
-			this.y = 16;
+			this.x = 48;
+			this.y = 752;
 			render();
 		}
 		

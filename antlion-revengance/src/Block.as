@@ -24,6 +24,7 @@ package
 		public static const TILE_EXIT:int = 5;
 		public static const TILE_VENT:int = 6;
 		public static const TILE_STONE:int = 7;
+		public static const TILE_GRASS:int = 8;
 		
 		public var type:int;
 		private var tileNumber:int;
@@ -39,6 +40,7 @@ package
 			this.x = x;
 			this.y = y;
 			
+			/*
 			switch(type)
 			{
 				case TILE_ROCK:
@@ -49,8 +51,13 @@ package
 					fillColor = 0xdddddd;
 					imageNumber = BitmapAssets.TILE_DIRT;
 					break;
-				case TILE_MUD:
+				case TILE_MUD: // so we know nearby ones must be mud. Check those cells to figure out which this one should be.
 					fillColor = 0x33ee88;
+					// if there isn't mud to the left or above, this one is first
+						//above: current index - width of grid?
+					// if one to left but not above, is second
+					// if none to left but one above, third
+					// if one to left and one above, is fourth
 					break;
 				case TILE_RUBBLE:
 					fillColor = 0xee3883;
@@ -62,14 +69,61 @@ package
 					fillColor = 0xffd700;
 					break;
 			}
+			*/
 			
 			this.tilesheet = tilesheet;
 			
-			render();
+			//render();
 		}
 		
-		public function render():void
+		public function render(lvlArray:Array, index:int):void
 		{
+			
+			switch(type)
+			{
+				case TILE_ROCK:
+					fillColor = 0x333333;
+					imageNumber = BitmapAssets.TILE_ROCK;
+					break;
+				case TILE_DIRT:
+					fillColor = 0xdddddd;
+					imageNumber = BitmapAssets.TILE_DIRT;
+					break;
+				case TILE_MUD: // so we know nearby ones must be mud. Check those cells to figure out which this one should be.
+					fillColor = 0x33ee88;
+					// if there isn't mud to the left or above, this one is first
+						//above: current index - width of grid?
+					if (lvlArray[index - 16] != TILE_MUD) { 		// if the one above isn't mud
+						if (lvlArray[index-1] !=TILE_MUD) {
+							imageNumber = BitmapAssets.TILE_MUD1;
+						} else {
+							imageNumber = BitmapAssets.TILE_MUD2;
+						}
+					} else { 	// if the one above is mud
+						if (lvlArray[index-1] !=TILE_MUD) {
+							imageNumber = BitmapAssets.TILE_MUD3;
+						} else {
+							imageNumber = BitmapAssets.TILE_MUD4;
+						}
+					}
+					// if one to left but not above, is second
+					// if none to left but one above, third
+					// if one to left and one above, is fourth
+					break;
+				case TILE_RUBBLE:
+					fillColor = 0xee3883;
+					break;
+				case TILE_TWIG:
+					fillColor = 0x883333;
+					break;
+				case TILE_EXIT:
+					fillColor = 0xffd700;
+					break;
+				case TILE_GRASS:
+					imageNumber = BitmapAssets.TILE_GRASS;
+					break;
+			}			
+			
 			this.graphics.beginFill(fillColor);
 			this.graphics.drawRect(0,0,TILE_HEIGHT,TILE_WIDTH);
 			this.graphics.endFill();
