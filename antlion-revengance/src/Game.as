@@ -1,5 +1,7 @@
 package 
 {
+	import flash.display.DisplayObject;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -15,6 +17,8 @@ package
 	{
 		private var ant:Ant;
 		private var antLion:AntLion;
+		
+		private var tileSheetData:BitmapData;
 		
 		private var timer:Timer;
 		
@@ -57,6 +61,11 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			
+			// Add global tilesheet bitmap data object
+			var tilesheetpng:DisplayObject = new BitmapAssets.Tilesheet();
+			tileSheetData = new BitmapData(tilesheetpng.width, tilesheetpng.height, true, 0);
+			tileSheetData.draw(tilesheetpng);
+			
 			startScreen();
 		}
 		
@@ -83,13 +92,13 @@ package
 		}
 		
 		private function buildLevel():void
-		{
+		{	
 			for (var i:int = 0; i < lvlArray.length; i++) {
 				var x:int = 0;
 				var y:int = 0;
 				x = 32 * (i % 16);
 				y = 32 * Math.floor(i/16);
-				var temp:Block = new Block(lvlArray[i], x, y); 
+				var temp:Block = new Block(lvlArray[i], x, y, tileSheetData); 
 				blockModel.push(temp);
 				addChild(temp);
 				

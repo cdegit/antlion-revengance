@@ -1,6 +1,10 @@
 package  
 {
 	import flash.display.Sprite;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	/**
 	 * ...
@@ -23,9 +27,12 @@ package
 		
 		public var type:int;
 		private var tileNumber:int;
+		private var imageNumber:int = -1;
 		private var fillColor:uint = 0x000000;
 		
-		public function Block(type:int, x:int, y:int) 
+		private var tilesheet:BitmapData;
+		
+		public function Block(type:int, x:int, y:int, tilesheet:BitmapData) 
 		{
 			super();
 			this.type = type;
@@ -36,9 +43,11 @@ package
 			{
 				case TILE_ROCK:
 					fillColor = 0x333333;
+					imageNumber = type;
 					break;
 				case TILE_DIRT:
 					fillColor = 0xdddddd;
+					imageNumber = type;
 					break;
 				case TILE_MUD:
 					fillColor = 0x33ee88;
@@ -54,6 +63,8 @@ package
 					break;
 			}
 			
+			this.tilesheet = tilesheet;
+			
 			render();
 		}
 		
@@ -62,6 +73,15 @@ package
 			this.graphics.beginFill(fillColor);
 			this.graphics.drawRect(0,0,TILE_HEIGHT,TILE_WIDTH);
 			this.graphics.endFill();
+			
+			if (imageNumber != -1) {
+				var sourceRect:Rectangle = new Rectangle(imageNumber * BitmapAssets.TILE_WIDTH, 0, BitmapAssets.TILE_WIDTH, BitmapAssets.TILE_WIDTH);
+				var point:Point = new Point(0, 0);
+				var blockBitmapData:BitmapData = new BitmapData(BitmapAssets.TILE_WIDTH, BitmapAssets.TILE_WIDTH, true, 0);
+				blockBitmapData.copyPixels(tilesheet, sourceRect, point);
+				var blockBitmap:Bitmap = new Bitmap(blockBitmapData);
+				addChild(blockBitmap);
+			}
 		}
 		
 	}
