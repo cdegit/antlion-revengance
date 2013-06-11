@@ -100,7 +100,7 @@ package
 		}
 		
 		private function startGame():void
-		{
+		{	
 			// Add global tilesheet bitmap data object
 			var tilesheetpng:DisplayObject = new BitmapAssets.Tilesheet();
 			tileSheetData = new BitmapData(tilesheetpng.width, tilesheetpng.height, true, 0);
@@ -151,6 +151,7 @@ package
 					startGame();
 					break;
 				case STATE_PLAY:
+					stage.focus = this;
 					play();
 					break;
 			}

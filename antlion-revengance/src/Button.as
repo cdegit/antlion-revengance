@@ -36,7 +36,7 @@ package
 		}
 		
 		private function buttonClicked(event:Event):void {
-			trace(clicked);
+			//trace(clicked);
 			clicked = true;	
 		}
 		
