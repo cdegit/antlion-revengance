@@ -104,7 +104,7 @@ package
 						tileType = temp;
 				}
 			}
-			if ( ( this.x > 512 - 32 || this.x < 0) || ( this.y > 768 || this.y < 0 ) || (tileType == 0) ) {
+			if ( ( this.x > 512 || this.x < 0) || ( this.y > 768 || this.y < 0 ) || (tileType == 0) ) {
 				this.x = oldx;
 				this.y = oldy;
 			}			

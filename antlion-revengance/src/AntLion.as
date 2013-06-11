@@ -74,7 +74,7 @@ package
 			// A* pathfinding:
 			
 			var havePath:Boolean = false;
-			// Switched to 11 because it starts to lag if set to 12
+			// Pretty much no limit, at least that is the intention
 			var counterLimit:int = 110;
 			// Initialize the queue, which stores the cell index of all cells checked 
 			// (ie, initial index, its neighbours, its' neighbours... etc)
