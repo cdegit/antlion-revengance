@@ -125,11 +125,6 @@ package
 					break;
 			}			
 			
-			/*
-			this.graphics.beginFill(fillColor);
-			this.graphics.drawRect(0,0,TILE_HEIGHT,TILE_WIDTH);
-			this.graphics.endFill();
-			*/
 			
 			if (imageNumber != -1) {
 				var sourceRect:Rectangle = new Rectangle(imageNumber * BitmapAssets.TILE_WIDTH, 0, BitmapAssets.TILE_WIDTH, BitmapAssets.TILE_WIDTH);
@@ -138,6 +133,10 @@ package
 				blockBitmapData.copyPixels(tilesheet, sourceRect, point);
 				var blockBitmap:Bitmap = new Bitmap(blockBitmapData);
 				addChild(blockBitmap);
+			} else {
+				this.graphics.beginFill(fillColor);
+				this.graphics.drawRect(0,0,TILE_HEIGHT,TILE_WIDTH);
+				this.graphics.endFill();
 			}
 		}
 		

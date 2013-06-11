@@ -150,9 +150,7 @@ package
 			if ( ant.hitTestObject(exit) ) {
 				trace("You win!");
 				winGame();
-			}
-			
-			if (ant.dead) {
+			} else if (ant.dead) {
 				trace("you lose!");
 				gameOver();
 			}
