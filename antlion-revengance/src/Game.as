@@ -15,6 +15,15 @@ package
 	 */
 	public class Game extends Sprite 
 	{
+		// Game States
+		public static const STATE_INIT:int = 10;
+		public static const STATE_TITLESCREEN:int = 15;
+		public static const STATE_STARTGAME:int = 20;
+		public static const STATE_PLAY:int = 25;
+		public static const STATE_GAMEOVER:int = 35;
+		
+		public var gamestate:int = STATE_INIT;
+		
 		private var ant:Ant;
 		private var antLion:AntLion;
 		
@@ -23,6 +32,9 @@ package
 		private var timer:Timer;
 		
 		private var exitIndex:int;
+		
+		private var splashScreen:SplashScreen;
+		private var splashScreenVisible:Boolean = false;
 		
 		private var lvlArray:Array =   [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
 										8, 8, 8, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
@@ -61,27 +73,40 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			// entry point
 			
-			// Add global tilesheet bitmap data object
-			var tilesheetpng:DisplayObject = new BitmapAssets.Tilesheet();
-			tileSheetData = new BitmapData(tilesheetpng.width, tilesheetpng.height, true, 0);
-			tileSheetData.draw(tilesheetpng);
+			timer = new Timer(1000);
+			timer.addEventListener(TimerEvent.TIMER, gameLoop);
+			timer.start();
 			
-			startScreen();
+			gamestate = STATE_TITLESCREEN;
 		}
 		
 		private function startScreen():void
 		{
 			// draw start screen. Based on user interaction:
-			startGame();
+			
+			if(!splashScreenVisible) {
+				splashScreen = new SplashScreen(SplashScreen.TITLE_SCREEN);
+				stage.addChild(splashScreen);
+				splashScreenVisible = true;
+			}
+			
+			if (splashScreen != null && splashScreen.finished) {
+				splashScreen.dispose();
+				stage.removeChild(splashScreen);
+				splashScreen = null;
+				gamestate = STATE_STARTGAME;
+			}
+			
 		}
 		
 		private function startGame():void
 		{
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
+			// Add global tilesheet bitmap data object
+			var tilesheetpng:DisplayObject = new BitmapAssets.Tilesheet();
+			tileSheetData = new BitmapData(tilesheetpng.width, tilesheetpng.height, true, 0);
+			tileSheetData.draw(tilesheetpng);
 			
-			timer = new Timer(1000);
-			timer.addEventListener(TimerEvent.TIMER, gameLoop);
-			timer.start();
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			
 			buildLevel();
 			ant = new Ant(blockModel, tileSheetData);
@@ -89,6 +114,8 @@ package
 			
 			antLion = new AntLion(blockModel);
 			addChild(antLion);
+			
+			gamestate = STATE_PLAY;
 		}
 		
 		private function buildLevel():void
@@ -112,10 +139,26 @@ package
 		
 		private function gameLoop(event:TimerEvent):void
 		{
+			switch(gamestate) {					// gameState is a global variable which holds the current game mode
+				case STATE_INIT :
+					//initGame();					// Start a new game
+					break;
+				case STATE_TITLESCREEN:
+					//showScore(SplashScreen.TITLE_SCREEN);			// Create a title screen
+					startScreen();
+					break;		
+				case STATE_STARTGAME:
+					startGame();
+					break;
+				case STATE_PLAY:
+					play();
+					break;
+			}
+		}
+		
+		private function play():void
+		{
 			moveAntLion();
-			
-			// Check Lose Conditions
-			
 			// After Ant Lion moves, check if it has hit the Ant
 			if ( antLion.hitTestObject(ant) ) {
 				trace("Game over!");
