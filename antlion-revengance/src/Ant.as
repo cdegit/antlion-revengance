@@ -38,22 +38,19 @@ package
 		
 		public function render():void
 		{
-			
-			this.graphics.beginFill(0xff0000);
-			this.graphics.drawCircle(0, 0, 10);
-			this.graphics.endFill();
-			
-			/*
-			var sourceRect:Rectangle = new Rectangle(0, 32, BitmapAssets.TILE_WIDTH, BitmapAssets.TILE_WIDTH);
+			// (0,32) for accessing the cell that's directly below the first one in the tileset image
+			var sourceRect:Rectangle = new Rectangle(0, 32, BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2);
 			var point:Point = new Point(0, 0);
-			var antBitmapData:BitmapData = new BitmapData(BitmapAssets.TILE_WIDTH, BitmapAssets.TILE_WIDTH, true, 0);
+			var antBitmapData:BitmapData = new BitmapData(BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2, true, 0);
 			antBitmapData.copyPixels(tilesheet, sourceRect, point);
 			var antBitmap:Bitmap = new Bitmap(antBitmapData);
 			addChild(antBitmap);			
-			antBitmap.x = -16;
-			antBitmap.y = -16;
-			*/
+			antBitmap.x = -15;
+			antBitmap.y = -15;
 			
+			this.graphics.beginFill(0xff0000);
+			this.graphics.drawCircle(0, 0, 3);
+			this.graphics.endFill();
 		}
 		
 		public function move(x:int, y:int):void
@@ -71,6 +68,10 @@ package
 			var tileType:int = -1; 
 			for (var i:int = 0; i < blockModel.length; i++) {
 				var temp:int = checkBlock(blockModel[i]);
+				
+				//if (temp > -1) {
+				//	trace("blk: " + i);
+				//}
 				
 				switch(temp)	// handle interactions with different tile types 
 				{
@@ -114,7 +115,7 @@ package
 		{
 			var result:int = -1;
 			if (block.hitTestObject(this)) {
-				trace(block.type);
+				//trace("blk: " + block.type);
 				result = block.type;
 			}
 			return result;
