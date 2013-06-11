@@ -24,6 +24,12 @@ package
 		private var mudTimer:Timer;
 		private var tilesheet:BitmapData;
 		
+		private var hasBaby:Boolean = false;
+		private var sourceRect:Rectangle;
+		private var point:Point;
+		private var antBitmapData:BitmapData;
+		private var antBitmap:Bitmap;
+		
 		public function Ant(blockModel:Array, tilesheet:BitmapData) 
 		{
 			super();
@@ -39,18 +45,14 @@ package
 		public function render():void
 		{
 			// (0,32) for accessing the cell that's directly below the first one in the tileset image
-			var sourceRect:Rectangle = new Rectangle(0, 32, BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2);
-			var point:Point = new Point(0, 0);
-			var antBitmapData:BitmapData = new BitmapData(BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2, true, 0);
+			sourceRect= new Rectangle(0, 32, BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2);
+			point = new Point(0, 0);
+			antBitmapData = new BitmapData(BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2, true, 0);
 			antBitmapData.copyPixels(tilesheet, sourceRect, point);
-			var antBitmap:Bitmap = new Bitmap(antBitmapData);
+			antBitmap = new Bitmap(antBitmapData);
 			addChild(antBitmap);			
 			antBitmap.x = -15;
 			antBitmap.y = -15;
-			
-			this.graphics.beginFill(0xff0000);
-			this.graphics.drawCircle(0, 0, 3);
-			this.graphics.endFill();
 		}
 		
 		public function move(x:int, y:int):void
@@ -139,6 +141,48 @@ package
 		public function escapeMud(e:TimerEvent):void
 		{
 			inMud = false;
+		}
+		
+		// Takes an (x,y) coordinate input and returns the index of the cell it is in
+		private function coordToGrid(x:int, y:int):int {
+			// Currently a constant, but should get it dynamically
+			var blockSize:int = 32;
+			var mazeWidth:int = 16;
+			
+			// Converts x & y to the number of cells it spans (ie, 80/blockSize = 80/32 = 2 cells rounded down)
+			var gridX:int = x / blockSize;
+			var gridY:int = y / blockSize;
+			
+			// Every increment of y is an entire row (ie, mazeWidth),
+			// while 0 <= x < mazeWidth
+			var index:int = gridY * mazeWidth + gridX;
+
+			return index;
+		}
+		
+		public function getIndex():int {
+			return coordToGrid(this.x, this.y);
+		}
+		
+		public function gotBaby():void 
+		{
+			hasBaby = true;
+			updateImage();
+		}
+		
+		private function updateImage():void 
+		{
+			removeChild(antBitmap);
+			
+			// (0,32) for accessing the cell that's directly below the first one in the tileset image
+			sourceRect= new Rectangle(128, 32, BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2);
+			point = new Point(0, 0);
+			antBitmapData = new BitmapData(BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2, true, 0);
+			antBitmapData.copyPixels(tilesheet, sourceRect, point);
+			antBitmap = new Bitmap(antBitmapData);
+			addChild(antBitmap);			
+			antBitmap.x = -15;
+			antBitmap.y = -15;
 		}
 	}
 

@@ -1,6 +1,10 @@
 package 
 {
 	import flash.display.Sprite;
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
 	/**
 	 * ...
@@ -11,17 +15,19 @@ package
 	{
 		private static const SPEED:int = 32;
 		private var blockModel:Array = [];
+		private var tilesheet:BitmapData;
 		
 		// Using A* pathfinding instead, but has potential for future use
 		//private var chokepoints:Array = [];
 		private var walkablePoints:Array = [];
 		
-		public function AntLion(blockModel:Array) 
+		public function AntLion(blockModel:Array, tilesheet:BitmapData) 
 		{
 			super();
 			this.blockModel = blockModel;
 			this.x = 16;
 			this.y = 112;
+			this.tilesheet = tilesheet;
 			render();
 			
 			// Create a map of which cells are walkable
@@ -30,9 +36,14 @@ package
 		
 		public function render():void
 		{
-			this.graphics.beginFill(0x000000);
-			this.graphics.drawCircle(0, 0, 15);
-			this.graphics.endFill();
+			var sourceRect:Rectangle = new Rectangle(32, 32, BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2);
+			var point:Point = new Point(0, 0);
+			var antBitmapData:BitmapData = new BitmapData(BitmapAssets.TILE_WIDTH-2, BitmapAssets.TILE_WIDTH-2, true, 0);
+			antBitmapData.copyPixels(tilesheet, sourceRect, point);
+			var antBitmap:Bitmap = new Bitmap(antBitmapData);
+			addChild(antBitmap);			
+			antBitmap.x = -15;
+			antBitmap.y = -15;
 		}
 		
 		// WalkablePoints[] is used to store a map of the number of steps to reach the Ant in each cell

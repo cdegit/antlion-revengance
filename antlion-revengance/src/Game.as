@@ -26,6 +26,7 @@ package
 		
 		private var ant:Ant;
 		private var antLion:AntLion;
+		private var baby:Baby;
 		
 		private var tileSheetData:BitmapData;
 		
@@ -112,8 +113,11 @@ package
 			ant = new Ant(blockModel, tileSheetData);
 			addChild(ant);
 			
-			antLion = new AntLion(blockModel);
+			antLion = new AntLion(blockModel, tileSheetData);
 			addChild(antLion);
+			
+			baby = new Baby(tileSheetData);
+			addChild(baby);
 			
 			gamestate = STATE_PLAY;
 		}
@@ -187,6 +191,11 @@ package
 				case Keyboard.RIGHT:
 					ant.move(Ant.SPEED, 0);
 					break;	
+			}
+			
+			if ( ant.getIndex() == baby.getIndex() ) {
+				baby.pickedUp();
+				ant.gotBaby();
 			}
 			
 			// After Ant moves, check if it has reached exit
