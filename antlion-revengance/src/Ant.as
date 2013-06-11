@@ -184,6 +184,10 @@ package
 			antBitmap.x = -15;
 			antBitmap.y = -15;
 		}
+		
+		public function getHasBaby():Boolean
+		{
+			return hasBaby;
+		}
 	}
-
 }

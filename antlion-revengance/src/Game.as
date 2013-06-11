@@ -167,7 +167,7 @@ package
 			// After Ant Lion moves, check if it has hit the Ant
 			if ( antLion.hitTestObject(ant) ) {
 				trace("Game over!");
-				gameOver();
+				loseGame();
 			}
 		}
 		
@@ -201,11 +201,11 @@ package
 			// After Ant moves, check if it has reached exit
 			var exit:Block = blockModel[exitIndex];
 			if ( ant.hitTestObject(exit) ) {
-				trace("You win!");
+				//trace("You win!");
 				winGame();
 			} else if (ant.dead) {
-				trace("you lose!");
-				gameOver();
+				//trace("you lose!");
+				loseGame();
 			}
 		}
 		
@@ -234,16 +234,29 @@ package
 			blockModel = null;
 		}
 		
-		private function gameOver():void
+		private function loseGame():void
 		{
 			gameEnd();
-			// display end game screen
+			splashScreen = new SplashScreen(SplashScreen.GAME_OVER_LOSE);
+			stage.addChild(splashScreen);
+			splashScreenVisible = true;
 		}
 		
 		private function winGame():void 
 		{
+			var savedBaby:Boolean = ant.getHasBaby();
 			gameEnd();
-			// display end game screen
+			
+			if (savedBaby == true) {
+				splashScreen = new SplashScreen(SplashScreen.GAME_OVER_WIN_WITH_BABY);
+				stage.addChild(splashScreen);
+				splashScreenVisible = true;
+			}
+			else if (savedBaby == false) {
+				splashScreen = new SplashScreen(SplashScreen.GAME_OVER_WIN_NO_BABY);
+				stage.addChild(splashScreen);
+				splashScreenVisible = true;
+			}
 		}
 	}
 }
